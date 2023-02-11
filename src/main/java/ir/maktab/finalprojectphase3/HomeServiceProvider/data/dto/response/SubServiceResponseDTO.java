@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SubServiceResponseDTO {
-    BaseServiceRequestDTO baseServiceRequestDTO;
+    BaseServiceResponseDTO baseServiceResponseDTO;
     String name;
     String description;
     Double basePrice;
