@@ -13,5 +13,4 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BaseServiceResponseDTO {
     String name;
-    List<SubServiceResponseDTO> subServiceResponseDTOList = new ArrayList<>();
 }
