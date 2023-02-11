@@ -16,7 +16,7 @@ public interface ExpertMapper {
 
     Expert registerDtoToModel(ExpertRegistrationDTO expertRegistrationDTO);
 
-    Expert emailDtoToModel(ExpertEmailDTO expertEmailDTO);
+    Expert emailDtoToModel(UserEmailDTO expertEmailDTO);
 
     Expert updateDtoToModel(ExpertUpdateDTO expertUpdateDTO);
 
