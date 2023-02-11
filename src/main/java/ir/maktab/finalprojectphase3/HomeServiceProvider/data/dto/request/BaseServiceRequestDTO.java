@@ -3,6 +3,9 @@ package ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -10,4 +13,5 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BaseServiceRequestDTO {
     String name;
+    List<SubServiceRequestDTO> subServiceRequestDTOList = new ArrayList<>();
 }
