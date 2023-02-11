@@ -48,7 +48,7 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public void remove(ExpertEmailDTO expertEmailDTO) {
+    public void remove(UserEmailDTO expertEmailDTO) {
         Expert expert = ExpertMapper.INSTANCE.emailDtoToModel(expertEmailDTO);
         expert.setDeleted(true);
         expertRepository.save(expert);
@@ -67,7 +67,7 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public void updateExpertSubService(SubServiceRequestDTO subServiceRequestDTO, ExpertEmailDTO expertEmailDTO) {
+    public void updateExpertSubService(SubServiceRequestDTO subServiceRequestDTO, UserEmailDTO expertEmailDTO) {
         Expert expert = ExpertMapper.INSTANCE.emailDtoToModel(expertEmailDTO);
         SubService subService = SubServiceMapper.INSTANCE.requestDtoToModel(subServiceRequestDTO);
         expert.getSubServices().add(subService);

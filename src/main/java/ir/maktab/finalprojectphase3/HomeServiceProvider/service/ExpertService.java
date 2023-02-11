@@ -12,13 +12,13 @@ import java.util.List;
 public interface ExpertService {
     void add(ExpertRegistrationDTO expertRegistrationDTO);
 
-    void remove(ExpertEmailDTO expertEmailDTO);
+    void remove(UserEmailDTO expertEmailDTO);
 
     void update(ExpertUpdateDTO expertUpdateDTO);
 
     ExpertResponseDTO findByUsername(String expertUsername);
 
-    void updateExpertSubService(SubServiceRequestDTO subServiceRequestDTO, ExpertEmailDTO expertEmailDTO);
+    void updateExpertSubService(SubServiceRequestDTO subServiceRequestDTO, UserEmailDTO expertEmailDTO);
 
     void receivedNewComment(CommentRequestDTO commentRequestDTO, ExpertGetCommentDTO expertGetCommentDTO);
 
