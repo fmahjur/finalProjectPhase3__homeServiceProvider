@@ -11,5 +11,5 @@ import lombok.experimental.FieldDefaults;
 public class CommentRequestDTO {
     String comment;
     double score;
-    ExpertRequestDTO expertRequestDTO;
+    ExpertGetCommentDTO expertGetCommentDTO;
 }
