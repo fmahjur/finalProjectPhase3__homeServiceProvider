@@ -15,7 +15,7 @@ public class ExpertRegistrationDTO {
     String emailAddress;
     String username;
     String password;
-    Credit credit;
+    CreditRequestDTO creditRequestDTO;
     byte[] personalPhoto;
 
 }
