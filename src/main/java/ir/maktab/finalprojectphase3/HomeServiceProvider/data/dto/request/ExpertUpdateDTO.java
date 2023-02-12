@@ -21,7 +21,7 @@ public class ExpertUpdateDTO {
     String emailAddress;
     String username;
     String password;
-    Credit credit;
+    CreditRequestDTO creditRequestDTO;
     ExpertStatus expertStatus;
     byte[] personalPhoto;
 }
