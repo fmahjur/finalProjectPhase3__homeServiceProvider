@@ -1,44 +1,39 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl;
 
-import ir.maktab.finalprojectphase3.HomeServiceProvider.config.CaptchaSettings;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.GoogleResponse;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.exception.InvalidReCaptchaException;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.exception.ReCaptchaInvalidException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestOperations;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.exception.ReCaptchaUnavailableException;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.service.CaptchaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 import java.net.URI;
-import java.util.regex.Pattern;
 
-public class CaptchaService implements ir.maktab.finalprojectphase3.HomeServiceProvider.service.CaptchaService {
+@Service("captchaService")
+public class CaptchaServiceImpl extends AbstractCaptchaService {
 
-    @Autowired
-    private CaptchaSettings captchaSettings;
-
-    @Autowired
-    private RestOperations restTemplate;
-
-    private static Pattern RESPONSE_PATTERN = Pattern.compile("[A-Za-z0-9_-]+");
+    private final static Logger LOGGER = LoggerFactory.getLogger(CaptchaService.class);
 
     @Override
-    public void processResponse(String response) {
-        if(!responseSanityCheck(response)) {
-            throw new InvalidReCaptchaException("Response contains invalid characters");
+    public void processResponse(final String response) {
+        securityCheck(response);
+
+        final URI verifyUri = URI.create(String.format(RECAPTCHA_URL_TEMPLATE, getReCaptchaSecret(), response, getClientIP()));
+        try {
+            final GoogleResponse googleResponse = restTemplate.getForObject(verifyUri, GoogleResponse.class);
+            LOGGER.debug("Google's response: {} ", googleResponse.toString());
+
+            if (!googleResponse.isSuccess()) {
+                if (googleResponse.hasClientError()) {
+                    reCaptchaAttemptService.reCaptchaFailed(getClientIP());
+                }
+                throw new ReCaptchaInvalidException("reCaptcha was not successfully validated");
+            }
+        } catch (RestClientException rce) {
+            throw new ReCaptchaUnavailableException("Registration unavailable at this time.  Please try again later.", rce);
         }
-
-        URI verifyUri = URI.create(String.format(
-                "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s&remoteip=%s",
-                getReCaptchaSecret(), response, getClientIP()));
-
-        GoogleResponse googleResponse = restTemplate.getForObject(verifyUri, GoogleResponse.class);
-
-        if(!googleResponse.isSuccess()) {
-            throw new ReCaptchaInvalidException("reCaptcha was not successfully validated");
-        }
-    }
-
-    private boolean responseSanityCheck(String response) {
-        return StringUtils.hasLength(response) && RESPONSE_PATTERN.matcher(response).matches();
+        reCaptchaAttemptService.reCaptchaSucceeded(getClientIP());
     }
 }
