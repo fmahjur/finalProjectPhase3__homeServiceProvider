@@ -1,9 +1,7 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.data.model;
 
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.enums.OfferStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +34,7 @@ public class Offer extends BaseEntity {
 
     LocalDateTime proposedEndDate;
 
+    @Enumerated(EnumType.STRING)
     OfferStatus offerStatus;
 
     boolean isDeleted;

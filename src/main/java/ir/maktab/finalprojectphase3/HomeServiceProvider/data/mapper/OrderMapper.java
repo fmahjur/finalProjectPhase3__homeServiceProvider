@@ -17,9 +17,7 @@ public interface OrderMapper {
     Orders requestDtoToModel(OrderRequestDTO orderRequestDTO);
 
     Orders submitDtoToModel(SubmitOrderDTO submitOrderDTO);
-    Orders orderUpdateDtoToModel(OrderUpdateDTO orderUpdateDTO);
 
     OrderResponseDTO modelToResponseDto(Orders orders);
 
-    OrderRequestDTO modelToRequestDto(Orders orders);
 }

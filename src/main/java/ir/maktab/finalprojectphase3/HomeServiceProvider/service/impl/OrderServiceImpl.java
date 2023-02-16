@@ -35,8 +35,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void add(Orders orders) {
-        OrderValidator.isValidOrderStartDate(orders.getWorkStartDate());
-        OrderValidator.isValidCustomerProposedPrice(orders);
+        //OrderValidator.isValidOrderStartDate(orders.getWorkStartDate());
+        //OrderValidator.isValidCustomerProposedPrice(orders);
         orderRepository.save(orders);
     }
 
@@ -101,8 +101,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponseDTO getOrderDetail(Long orderId) {
-        Orders orderByOrderNumber = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Not found!"));
-        return OrderMapper.INSTANCE.modelToResponseDto(orderByOrderNumber);
+        Orders order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Not found!"));
+        return OrderMapper.INSTANCE.modelToResponseDto(order);
     }
 
     public void changeOrderStatus(Long orderId, OrderStatus orderStatus) {

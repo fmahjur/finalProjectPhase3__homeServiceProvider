@@ -16,8 +16,8 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderResponseDTO {
     String orderNumber;
-    Customer customer;
-    SubService subService;
+    Long customerId;
+    Long subServiceId;
     List<Offer> offers = new ArrayList<>();
     String description;
     Double CustomerProposedPrice;
