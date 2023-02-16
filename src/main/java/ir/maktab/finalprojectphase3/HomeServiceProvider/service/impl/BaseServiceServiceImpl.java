@@ -29,10 +29,8 @@ public class BaseServiceServiceImpl implements BaseServiceService {
     }
 
     @Override
-    public void remove(BaseServiceRequestDTO baseServiceRequestDTO) {
-        BaseService baseService = BaseServiceMapper.INSTANCE.requestDtoToModel(baseServiceRequestDTO);
-        baseService.setDeleted(true);
-        baseServiceRepository.save(baseService);
+    public void remove(Long baseServiceId) {
+        baseServiceRepository.updateIsDeletedFlag(baseServiceId);
     }
 
     @Override
@@ -45,6 +43,11 @@ public class BaseServiceServiceImpl implements BaseServiceService {
     public BaseServiceResponseDTO findByName(String baseServiceName) {
         BaseService baseService = baseServiceRepository.findByName(baseServiceName).orElseThrow(() -> new NotFoundException("not found"));
         return BaseServiceMapper.INSTANCE.modelToResponseDto(baseService);
+    }
+
+    @Override
+    public BaseService findById(Long baseServiceId) {
+        return baseServiceRepository.findById(baseServiceId).orElseThrow(() -> new NotFoundException("not found"));
     }
 
     @Override
