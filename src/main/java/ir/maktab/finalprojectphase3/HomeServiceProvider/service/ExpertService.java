@@ -2,10 +2,9 @@ package ir.maktab.finalprojectphase3.HomeServiceProvider.service;
 
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.*;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.ExpertResponseDTO;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.FilterExpertResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.enums.ExpertStatus;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Expert;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Offer;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Orders;
 
 import java.util.List;
 
@@ -14,25 +13,37 @@ public interface ExpertService {
 
     void remove(UserEmailDTO expertEmailDTO);
 
-    void update(ExpertUpdateDTO expertUpdateDTO);
+    void update(Expert expert);
 
-    ExpertResponseDTO findByUsername(String expertUsername);
+    Expert findByEmail(String email);
 
-    void updateExpertSubService(SubServiceRequestDTO subServiceRequestDTO, UserEmailDTO expertEmailDTO);
+    Expert findById(Long id);
 
-    void receivedNewComment(CommentRequestDTO commentRequestDTO, ExpertGetCommentDTO expertGetCommentDTO);
+    Expert findByUsername(String expertUsername);
+
+    void addSubServiceToExpert(Long subServiceId, Long expertId);
+
+    void removeSubServiceFromExpert(Long subServiceRequestId, Long expertId);
+
+    void receivedNewComment(CommentRequestDTO commentRequestDTO);
 
     List<ExpertResponseDTO> selectAll();
 
-    List<ExpertResponseDTO> selectAllAvailableService();
+    List<ExpertResponseDTO> selectAllAvailableExpert();
 
     void login(LoginDTO loginDTO);
 
-    Expert changePassword(ChangePasswordDTO changePasswordDTO, String newPassword, String confirmNewPassword);
+    Expert changePassword(ChangePasswordDTO changePasswordDTO);
 
     List<ExpertResponseDTO> selectExpertByExpertStatus(ExpertStatus expertStatus);
 
-    void submitAnOffer(Offer offer, Orders orders);
+    void submitAnOffer(OfferRequestDTO offerRequestDTO);
 
     byte[] getImage(Long id);
+
+    void updateCredit(Long expertId, Long newCredit);
+
+    void changeExpertAccountActivation(Long expertId, boolean isActive);
+
+    List<FilterExpertResponseDTO> expertsFilter(FilterExpertDTO expertDTO);
 }
