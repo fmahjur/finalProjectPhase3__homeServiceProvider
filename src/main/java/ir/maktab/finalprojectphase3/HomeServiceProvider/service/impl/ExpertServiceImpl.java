@@ -3,6 +3,7 @@ package ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.*;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.ExpertResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.FilterExpertResponseDTO;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OfferResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OrderResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.enums.ExpertStatus;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.mapper.CommentMapper;
@@ -42,6 +43,7 @@ public class ExpertServiceImpl implements ExpertService {
 
     private final SubServiceServiceImpl subServiceService;
     private final OrderServiceImpl orderService;
+    private final OfferServiceImpl offerService;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -245,5 +247,25 @@ public class ExpertServiceImpl implements ExpertService {
         if (expertDTO.getCredit() != null) {
             predicateList.add(criteriaBuilder.gt(expertRoot.get("credit"), expertDTO.getCredit()));
         }
+    }
+
+    @Override
+    public List<OfferResponseDTO> showAllOfferDoByExpert(Long expertId) {
+        return offerService.selectAllByExpert(expertId);
+    }
+
+    @Override
+    public List<OfferResponseDTO> showAllExpertOffersWaiting(Long expertId) {
+        return offerService.selectAllExpertOffersWaiting(expertId);
+    }
+
+    @Override
+    public List<OfferResponseDTO> showAllExpertOffersAccepted(Long expertId) {
+        return offerService.selectAllExpertOffersAccepted(expertId);
+    }
+
+    @Override
+    public List<OfferResponseDTO> showAllExpertOffersRejected(Long expertId) {
+        return offerService.selectAllExpertOffersRejected(expertId);
     }
 }

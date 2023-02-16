@@ -4,6 +4,7 @@ import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.ChangeP
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.LoginDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.OfferRequestDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.UserRegistrationDTO;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OfferResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OrderResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl.ExpertServiceImpl;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.validation.PictureValidator;
@@ -67,5 +68,25 @@ public class ExpertController {
     @GetMapping("/show-expert-rate/{expertId}")
     public double viewExpertScore(@PathVariable Long expertId) {
         return expertService.getExpertRate(expertId);
+    }
+
+    @GetMapping("/show-all-offer-do-by-expert/{expertId}")
+    public List<OfferResponseDTO> viewAllOfferDoByExpert(@PathVariable Long expertId) {
+        return expertService.showAllOfferDoByExpert(expertId);
+    }
+
+    @GetMapping("/show-all-expert-offers-waiting/{expertId}")
+    public List<OfferResponseDTO> viewAllExpertOffersWaiting(@PathVariable Long expertId) {
+        return expertService.showAllExpertOffersWaiting(expertId);
+    }
+
+    @GetMapping("/show-all-expert-offers-accepted/{expertId}")
+    public List<OfferResponseDTO> viewAllExpertOffersAccepted(@PathVariable Long expertId) {
+        return expertService.showAllExpertOffersAccepted(expertId);
+    }
+
+    @GetMapping("/show-all-expert-offers-rejected/{expertId}")
+    public List<OfferResponseDTO> viewAllExpertOffersRejected(@PathVariable Long expertId) {
+        return expertService.showAllExpertOffersRejected(expertId);
     }
 }

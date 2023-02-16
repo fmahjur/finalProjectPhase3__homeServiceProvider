@@ -18,9 +18,9 @@ public interface OfferService {
 
     List<OfferResponseDTO> selectAllByExpert(Long expertId);
 
-    List<OfferResponseDTO> selectAllExpertOffersWaiting(UserEmailDTO expertEmail);
+    List<OfferResponseDTO> selectAllExpertOffersWaiting(Long expertId);
 
-    List<OfferResponseDTO> selectAllExpertOffersAccepted(UserEmailDTO expertEmail);
+    List<OfferResponseDTO> selectAllExpertOffersAccepted(Long expertId);
 
-    List<OfferResponseDTO> selectAllExpertOffersRejected(UserEmailDTO expertEmail);
+    List<OfferResponseDTO> selectAllExpertOffersRejected(Long expertId);
 }
