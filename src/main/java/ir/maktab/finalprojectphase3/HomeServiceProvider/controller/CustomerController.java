@@ -23,10 +23,6 @@ import java.util.List;
 public class CustomerController {
     private final CustomerServiceImpl customerService;
     private CaptchaService captchaService;
-    private final RestTemplate restTemplate;
-
-    private CaptchaServiceImpl captchaServiceImpl;
-    private OrderUpdateDTO orderUpdateDTO;
 
     @PostMapping("/signup")
     @ResponseBody
@@ -40,7 +36,7 @@ public class CustomerController {
         customerService.login(customerLoginDto);
     }
 
-    @PostMapping("/change-password")
+    @PutMapping("/change-password")
     @ResponseBody
     public void changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDTO) {
         customerService.changePassword(changePasswordDTO);
@@ -62,7 +58,7 @@ public class CustomerController {
         customerService.addNewOrder(submitOrderDTO);
     }
 
-    @PostMapping("/edit-order")
+    @PutMapping("/edit-order")
     @ResponseBody
     public void editOrder(@RequestBody OrderUpdateDTO orderUpdateDTO) {
         customerService.editOrder(orderUpdateDTO);
@@ -97,9 +93,9 @@ public class CustomerController {
         return customerService.showAllCustomerOrders(customerId);
     }
 
-    @GetMapping("/show-order-details/{customerId}")
-    public OrderResponseDTO showOrderDetails(@PathVariable Long customerId) {
-        return customerService.showOrderDetails(customerId);
+    @GetMapping("/show-order-details/{orderId}")
+    public OrderResponseDTO showOrderDetails(@PathVariable Long orderId) {
+        return customerService.showOrderDetails(orderId);
     }
 
     @GetMapping("/show-all-offer/{orderId}")

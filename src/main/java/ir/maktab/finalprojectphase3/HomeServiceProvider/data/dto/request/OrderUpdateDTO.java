@@ -18,6 +18,4 @@ public class OrderUpdateDTO {
     LocalDateTime workStartDate;
     int durationOfWork;
     String address;
-
-    OrderStatus orderStatus;
 }

@@ -21,6 +21,8 @@ public interface ExpertService {
 
     Expert findByUsername(String expertUsername);
 
+    double getExpertRate(Long expertId);
+
     void addSubServiceToExpert(Long subServiceId, Long expertId);
 
     void removeSubServiceFromExpert(Long subServiceRequestId, Long expertId);

@@ -20,7 +20,7 @@ public class ExpertController {
 
     @PostMapping("/signup")
     @ResponseBody
-    public void singUp(@Valid @RequestBody ExpertRegistrationDTO expertRegistrationDTO) {
+    public void singUp(@Valid @RequestParam ExpertRegistrationDTO expertRegistrationDTO) {
         expertService.add(expertRegistrationDTO);
     }
 
@@ -30,19 +30,24 @@ public class ExpertController {
         expertService.login(expertLoginDto);
     }
 
-    @PostMapping("/change-password")
+    @PutMapping("/change-password")
     @ResponseBody
     public void changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDTO) {
         expertService.changePassword(changePasswordDTO);
     }
 
-    @GetMapping("/show-related-orders")
-    public List<OrderResponseDTO> viewOrdersRelatedToExpert(Long expertId) {
+    @GetMapping("/show-related-orders/{expertId}")
+    public List<OrderResponseDTO> viewOrdersRelatedToExpert(@PathVariable Long expertId) {
         return expertService.showRelatedOrdersAvailableForExpert(expertId);
     }
 
     @PostMapping("/submit-offer-for-order")
     public void submitOfferForOrder(@RequestBody OfferRequestDTO offerRequestDTO) {
         expertService.submitAnOffer(offerRequestDTO);
+    }
+
+    @GetMapping("/show-expert-rate/{expertId}")
+    public double viewExpertScore(@PathVariable Long expertId) {
+        return expertService.getExpertRate(expertId);
     }
 }

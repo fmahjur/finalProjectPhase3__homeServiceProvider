@@ -75,6 +75,7 @@ public class ExpertServiceImpl implements ExpertService {
     public Expert findByEmail(String email) {
         return expertRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("not found"));
     }
+
     @Override
     public Expert findById(Long id) {
         return expertRepository.findById(id).orElseThrow(() -> new NotFoundException("not found"));
@@ -83,6 +84,11 @@ public class ExpertServiceImpl implements ExpertService {
     @Override
     public Expert findByUsername(String expertUsername) {
         return expertRepository.findByUsername(expertUsername).orElseThrow(() -> new NotFoundException("not found"));
+    }
+
+    @Override
+    public double getExpertRate(Long expertId) {
+        return findById(expertId).getRate();
     }
 
     @Override
@@ -159,7 +165,7 @@ public class ExpertServiceImpl implements ExpertService {
         return expertResponseDTOList;
     }
 
-    public List<OrderResponseDTO> showRelatedOrdersAvailableForExpert(Long expertId){
+    public List<OrderResponseDTO> showRelatedOrdersAvailableForExpert(Long expertId) {
         Expert expert = findById(expertId);
         List<OrderResponseDTO> orderResponseList = new ArrayList<>();
         expert.getSubServices().forEach(subService -> {
@@ -168,6 +174,7 @@ public class ExpertServiceImpl implements ExpertService {
         });
         return orderResponseList;
     }
+
     @Override
     public void submitAnOffer(OfferRequestDTO offerRequestDTO) {
         orderService.receivedNewOffer(offerRequestDTO);
@@ -202,7 +209,7 @@ public class ExpertServiceImpl implements ExpertService {
         expertCriteriaQuery.select(expertRoot).where(predicates);
         List<Expert> resultList = entityManager.createQuery(expertCriteriaQuery).getResultList();
         List<FilterExpertResponseDTO> filterExpertResponseDTOList = new ArrayList<>();
-        for (Expert expert: resultList)
+        for (Expert expert : resultList)
             filterExpertResponseDTOList.add(ExpertMapper.INSTANCE.modelToFilterResponseDto(expert));
         return filterExpertResponseDTOList;
     }

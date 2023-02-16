@@ -15,7 +15,7 @@ public class ExpertRegistrationDTO {
     String lastname;
 
     @Email(message = "invalid Email!")
-    String emailAddress;
+    String email;
     String username;
 
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–{}:;',?/*~$^+=<>]).{8,20}$",

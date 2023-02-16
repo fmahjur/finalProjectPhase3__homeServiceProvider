@@ -4,6 +4,7 @@ import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.SubService;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -13,10 +14,10 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SubmitOrderDTO {
     Long customerId;
-    SubService subService;
+    Long subServiceId;
     String description;
     Double CustomerProposedPrice;
-    Date workStartDate;
+    LocalDateTime workStartDate;
     int durationOfWork;
     String address;
 }

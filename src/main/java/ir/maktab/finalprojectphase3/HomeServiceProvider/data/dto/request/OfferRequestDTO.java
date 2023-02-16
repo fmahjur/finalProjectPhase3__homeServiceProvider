@@ -14,7 +14,7 @@ import java.util.Date;
 public class OfferRequestDTO {
     Long orderId;
     Long offerId;
-    Expert expert;
+    Long expertID;
     Long offerPrice;
     Date proposedStartDate;
     int durationOfWork;

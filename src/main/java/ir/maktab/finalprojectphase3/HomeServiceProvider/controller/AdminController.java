@@ -79,7 +79,7 @@ public class AdminController {
         adminService.checkExpertDelayForWork(offerId);
     }
 
-    @PutMapping("/change-expert-activation")
+    @PutMapping("/change-expert-activation/{expertId}")
     public void inactiveExpertAccount(@PathVariable Long expertId) {
         adminService.deActiveExpert(expertId);
     }
@@ -94,7 +94,6 @@ public class AdminController {
         return adminService.customerFilter(customerDTO);
     }
 
-    @Transactional
     @GetMapping("/show-sub-services-expert/{subServiceId}")
     public List<ExpertResponseDTO> viewSubServiceExperts(@PathVariable Long subServiceId) {
         return adminService.showSubServicesExpert(subServiceId);

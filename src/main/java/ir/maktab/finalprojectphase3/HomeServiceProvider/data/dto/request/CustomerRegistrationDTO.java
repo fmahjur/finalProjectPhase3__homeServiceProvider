@@ -14,7 +14,7 @@ public class CustomerRegistrationDTO {
     String firstname;
     String lastname;
     @Email(message = "invalid Email!")
-    String emailAddress;
+    String email;
     String username;
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–{}:;',?/*~$^+=<>]).{8,20}$",
             message = "invalid password!")
