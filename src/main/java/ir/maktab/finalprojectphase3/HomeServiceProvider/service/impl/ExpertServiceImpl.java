@@ -251,21 +251,25 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public List<OfferResponseDTO> showAllOfferDoByExpert(Long expertId) {
-        return offerService.selectAllByExpert(expertId);
+        Expert expert = findById(expertId);
+        return offerService.selectAllByExpert(expert);
     }
 
     @Override
     public List<OfferResponseDTO> showAllExpertOffersWaiting(Long expertId) {
-        return offerService.selectAllExpertOffersWaiting(expertId);
+        Expert expert = findById(expertId);
+        return offerService.selectAllExpertOffersWaiting(expert);
     }
 
     @Override
     public List<OfferResponseDTO> showAllExpertOffersAccepted(Long expertId) {
-        return offerService.selectAllExpertOffersAccepted(expertId);
+        Expert expert = findById(expertId);
+        return offerService.selectAllExpertOffersAccepted(expert);
     }
 
     @Override
     public List<OfferResponseDTO> showAllExpertOffersRejected(Long expertId) {
-        return offerService.selectAllExpertOffersRejected(expertId);
+        Expert expert = findById(expertId);
+        return offerService.selectAllExpertOffersRejected(expert);
     }
 }

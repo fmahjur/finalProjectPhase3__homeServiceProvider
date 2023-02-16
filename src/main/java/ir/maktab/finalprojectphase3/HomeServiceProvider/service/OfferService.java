@@ -1,8 +1,8 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.service;
 
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.OfferRequestDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.UserEmailDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OfferResponseDTO;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Expert;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Offer;
 
 import java.util.List;
@@ -16,11 +16,11 @@ public interface OfferService {
 
     List<OfferResponseDTO> selectAllByOrder(Long orderId);
 
-    List<OfferResponseDTO> selectAllByExpert(Long expertId);
+    List<OfferResponseDTO> selectAllByExpert(Expert expert);
 
-    List<OfferResponseDTO> selectAllExpertOffersWaiting(Long expertId);
+    List<OfferResponseDTO> selectAllExpertOffersWaiting(Expert expert);
 
-    List<OfferResponseDTO> selectAllExpertOffersAccepted(Long expertId);
+    List<OfferResponseDTO> selectAllExpertOffersAccepted(Expert expert);
 
-    List<OfferResponseDTO> selectAllExpertOffersRejected(Long expertId);
+    List<OfferResponseDTO> selectAllExpertOffersRejected(Expert expert);
 }

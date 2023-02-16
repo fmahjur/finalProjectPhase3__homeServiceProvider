@@ -1,10 +1,8 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl;
 
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.OfferRequestDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.UserEmailDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OfferResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.enums.OfferStatus;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.mapper.ExpertMapper;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.mapper.OfferMapper;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Expert;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Offer;
@@ -25,7 +23,6 @@ import java.util.List;
 public class OfferServiceImpl implements OfferService {
     private final OfferRepository offerRepository;
     private final OrderServiceImpl orderService;
-    private final ExpertServiceImpl expertService;
 
     @Override
     public void add(Offer offer) {
@@ -59,8 +56,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferResponseDTO> selectAllByExpert(Long expertId) {
-        Expert expert = expertService.findById(expertId);
+    public List<OfferResponseDTO> selectAllByExpert(Expert expert) {
         List<Offer> allOfferByExpert = offerRepository.findAllByExpert(expert);
         List<OfferResponseDTO> offerResponseDTOList = new ArrayList<>();
         for (Offer offer : allOfferByExpert)
@@ -69,8 +65,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferResponseDTO> selectAllExpertOffersWaiting(Long expertId) {
-        Expert expert = expertService.findById(expertId);
+    public List<OfferResponseDTO> selectAllExpertOffersWaiting(Expert expert) {
         List<Offer> allExpertOffersAccepted = offerRepository.findOffersByExpertAndOfferStatus(expert, OfferStatus.WAITING);
         List<OfferResponseDTO> offerResponseDTOList = new ArrayList<>();
         for (Offer offer : allExpertOffersAccepted)
@@ -79,8 +74,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferResponseDTO> selectAllExpertOffersAccepted(Long expertId) {
-        Expert expert = expertService.findById(expertId);
+    public List<OfferResponseDTO> selectAllExpertOffersAccepted(Expert expert) {
         List<Offer> allExpertOffersAccepted = offerRepository.findOffersByExpertAndOfferStatus(expert, OfferStatus.ACCEPTED);
         List<OfferResponseDTO> offerResponseDTOList = new ArrayList<>();
         for (Offer offer : allExpertOffersAccepted)
@@ -89,8 +83,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferResponseDTO> selectAllExpertOffersRejected(Long expertId) {
-        Expert expert = expertService.findById(expertId);
+    public List<OfferResponseDTO> selectAllExpertOffersRejected(Expert expert) {
         List<Offer> allExpertOffersAccepted = offerRepository.findOffersByExpertAndOfferStatus(expert, OfferStatus.REJECTED);
         List<OfferResponseDTO> offerResponseDTOList = new ArrayList<>();
         for (Offer offer : allExpertOffersAccepted)
