@@ -9,7 +9,7 @@ import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Expert;
 import java.util.List;
 
 public interface ExpertService {
-    void add(ExpertRegistrationDTO expertRegistrationDTO);
+    void add(UserRegistrationDTO expertRegistrationDTO, byte[] expertPicture);
 
     void remove(UserEmailDTO expertEmailDTO);
 

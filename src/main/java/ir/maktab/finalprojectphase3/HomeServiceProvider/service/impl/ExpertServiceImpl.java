@@ -46,8 +46,9 @@ public class ExpertServiceImpl implements ExpertService {
     private EntityManager entityManager;
 
     @Override
-    public void add(ExpertRegistrationDTO expertRegistrationDTO) {
+    public void add(UserRegistrationDTO expertRegistrationDTO, byte[] expertPicture) {
         Expert expert = ExpertMapper.INSTANCE.registerDtoToModel(expertRegistrationDTO);
+        expert.setPersonalPhoto(expertPicture);
         EmailValidator.isValid(expert.getEmail());
         ExpertValidator.isExistExpert(expert.getEmail());
         Optional<Expert> savedExpert = expertRepository.findByEmail(expert.getEmail());

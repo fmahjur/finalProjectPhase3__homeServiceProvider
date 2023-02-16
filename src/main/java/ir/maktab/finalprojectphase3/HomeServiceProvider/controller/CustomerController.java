@@ -6,14 +6,12 @@ import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OfferR
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OrderResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.SubServiceResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.service.CaptchaService;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl.CaptchaServiceImpl;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl.CustomerServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class CustomerController {
 
     @PostMapping("/signup")
     @ResponseBody
-    public void singUp(@Valid @RequestBody CustomerRegistrationDTO customerRegistrationDTO) {
+    public void singUp(@Valid @RequestBody UserRegistrationDTO customerRegistrationDTO) {
         customerService.add(customerRegistrationDTO);
     }
 

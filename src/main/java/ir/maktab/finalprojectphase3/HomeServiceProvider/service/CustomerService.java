@@ -7,7 +7,7 @@ import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Customer;
 import java.util.List;
 
 public interface CustomerService {
-    void add(CustomerRegistrationDTO customerRegistrationDTO);
+    void add(UserRegistrationDTO customerRegistrationDTO);
 
     void remove(UserEmailDTO customerEmailDto);
 

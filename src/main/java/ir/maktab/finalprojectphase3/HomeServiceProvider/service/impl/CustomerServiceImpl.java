@@ -48,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
     private EntityManager entityManager;
 
     @Override
-    public void add(CustomerRegistrationDTO customerRegistrationDTO) {
+    public void add(UserRegistrationDTO customerRegistrationDTO) {
         Customer customer = CustomerMapper.INSTANCE.registerDtoToModel(customerRegistrationDTO);
         EmailValidator.isValid(customer.getEmail());
         CustomerValidator.isExistCustomer(customer.getEmail());

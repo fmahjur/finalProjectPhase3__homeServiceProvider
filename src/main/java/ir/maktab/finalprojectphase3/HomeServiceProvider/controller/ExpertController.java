@@ -1,15 +1,18 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.controller;
 
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.ChangePasswordDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.ExpertRegistrationDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.LoginDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.OfferRequestDTO;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.UserRegistrationDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OrderResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl.ExpertServiceImpl;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.validation.PictureValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -20,8 +23,23 @@ public class ExpertController {
 
     @PostMapping("/signup")
     @ResponseBody
-    public void singUp(@Valid @RequestParam ExpertRegistrationDTO expertRegistrationDTO) {
-        expertService.add(expertRegistrationDTO);
+    public void singUp(@Valid @RequestParam String firstname,
+                       @RequestParam String lastname,
+                       @RequestParam String email,
+                       @RequestParam String username,
+                       @RequestParam String password,
+                       @RequestParam Long credit,
+                       @RequestParam("imageFile") MultipartFile file) {
+
+        UserRegistrationDTO expertRegistrationDTO = new UserRegistrationDTO(firstname, lastname, email, username, password, credit);
+        PictureValidator.isValidImageFile(file.getOriginalFilename());
+        byte[] expertPicture = new byte[0];
+        try {
+            expertPicture = file.getBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        expertService.add(expertRegistrationDTO, expertPicture);
     }
 
     @PostMapping("/login")

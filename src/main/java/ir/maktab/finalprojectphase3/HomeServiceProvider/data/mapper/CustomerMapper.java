@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 public interface CustomerMapper {
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
-    Customer registerDtoToModel(CustomerRegistrationDTO customerRegistrationDTO);
+    Customer registerDtoToModel(UserRegistrationDTO customerRegistrationDTO);
     Customer loginDtoToModel(LoginDTO customerLoginDTO);
     Customer emailDtoToModel(UserEmailDTO customerEmailDTO);
     Customer updateDtoToModel(CustomerUpdateDTO customerUpdateDTO);
