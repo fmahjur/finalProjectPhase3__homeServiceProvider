@@ -5,7 +5,8 @@ import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.BaseSe
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OfferResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OrderResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.SubServiceResponseDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl.CaptchaService;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.service.CaptchaService;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl.CaptchaServiceImpl;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.service.impl.CustomerServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -21,9 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerServiceImpl customerService;
+    private CaptchaService captchaService;
     private final RestTemplate restTemplate;
 
-    private CaptchaService captchaService;
+    private CaptchaServiceImpl captchaServiceImpl;
     private OrderUpdateDTO orderUpdateDTO;
 
     @PostMapping("/signup")
@@ -121,15 +123,11 @@ public class CustomerController {
 
     @PostMapping("/payment/pay")
     @ResponseBody
-    private String pay(@Valid CardDTO cardDto, HttpServletRequest request) {
-        String response = request.getParameter("g-recaptcha-response");
+    private String pay(@Valid final CardDTO cardDto, final HttpServletRequest request) {
+        final String response = request.getParameter("g-recaptcha-response");
         captchaService.processResponse(response);
 
-        if(result.hasErrors()){
-            model.addAttribute("cardDto", cardDto);
-            return "/payment";
-        }
-
-        return "redirect:/payment?success";
+        return "successful payment";
     }
+
 }
