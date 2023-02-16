@@ -5,6 +5,7 @@ import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Customer;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Orders;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.SubService;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,10 @@ public interface OrderRepository extends JpaRepository<Orders, Long> {
     List<Orders> findAllBySubService(@Param("order_status") OrderStatus orderStatus,
                                      @Param("order_status") OrderStatus orderStatus1,
                                      @Param("sub_service") SubService subService);
+
+    @Modifying
+    @Query("update Orders o set o.orderStatus = :newOrderStatus where o.id = :orderId")
+    int changeOrderStatus(Long orderId, OrderStatus newOrderStatus);
 
     Optional<Orders> findByOrderNumber(String orderNumber);
 

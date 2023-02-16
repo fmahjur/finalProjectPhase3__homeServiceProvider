@@ -18,4 +18,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Optional<Customer> findByEmail(String emailAddress);
     @Query("select c from Customer c where c.isDeleted= :isDeleted")
     List<Customer> findAllByDeletedIs(boolean isDeleted);
+
+    @Modifying
+    @Query("update Customer c set c.credit = :newCredit where c.id = :customerId")
+    void updateCredit(Long customerId, Long newCredit);
 }
