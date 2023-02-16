@@ -4,8 +4,8 @@ import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.Comment
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.UserEmailDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.CommentResponseDTO;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.mapper.CommentMapper;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.mapper.ExpertMapper;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Comment;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Expert;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.repository.CommentRepository;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +17,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class CommentServiceImp implements CommentService {
     private final CommentRepository commentRepository;
+    private final ExpertServiceImpl expertService;
 
     @Override
-    public void add(CommentRequestDTO commentRequestDTO) {
-        Comment comment = CommentMapper.INSTANCE.requestDtoToModel(commentRequestDTO);
+    public void add(Comment comment) {
         commentRepository.save(comment);
     }
 
@@ -42,9 +41,10 @@ public class CommentServiceImp implements CommentService {
 
     @Override
     public List<CommentResponseDTO> selectAllExpertComments(UserEmailDTO expertEmail) {
-        List<Comment> allExpertComment = commentRepository.findAllByExpertIsAndAndDeletedFalse(ExpertMapper.INSTANCE.emailDtoToModel(expertEmail));
+        Expert expert = expertService.findByEmail(expertEmail.getEmail());
+        List<Comment> allExpertComment = commentRepository.findByExpert(expert);
         List<CommentResponseDTO> commentResponseDTOList = new ArrayList<>();
-        for (Comment comment: allExpertComment)
+        for (Comment comment : allExpertComment)
             commentResponseDTOList.add(CommentMapper.INSTANCE.modelToResponseDto(comment));
         return commentResponseDTOList;
     }
