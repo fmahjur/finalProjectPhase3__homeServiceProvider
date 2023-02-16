@@ -1,4 +1,4 @@
-package ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response;
+package ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

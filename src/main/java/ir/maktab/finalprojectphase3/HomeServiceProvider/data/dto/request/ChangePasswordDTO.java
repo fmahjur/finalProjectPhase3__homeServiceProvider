@@ -1,5 +1,6 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,4 +12,8 @@ import lombok.experimental.FieldDefaults;
 public class ChangePasswordDTO {
     String username;
     String password;
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–{}:;',?/*~$^+=<>]).{8,20}$",
+            message = "invalid password!")
+    String newPassword;
+    String confirmNewPassword;
 }

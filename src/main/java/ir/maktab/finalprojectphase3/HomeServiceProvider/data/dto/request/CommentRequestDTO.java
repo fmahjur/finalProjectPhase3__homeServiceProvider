@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CommentRequestDTO {
+    Long expertId;
     String comment;
     double score;
-    ExpertGetCommentDTO expertGetCommentDTO;
 }

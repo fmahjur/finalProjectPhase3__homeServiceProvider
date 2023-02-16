@@ -1,5 +1,6 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request;
 
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,5 +10,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserEmailDTO {
-    String emailAddress;
+    @Email
+    String email;
 }

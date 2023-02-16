@@ -1,8 +1,16 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-public class CartDTO {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class CardDTO {
     @Pattern(
             regexp = "(?<!\\d)\\d{16}(?!\\d)|(?<!\\d[ _-])(?<!\\d)\\d{4}(?=([_ -]))(?:\\1\\d{4}){3}(?![_ -]?\\d)",
             message = "the format of the card-number is incorrect!")
@@ -13,6 +21,8 @@ public class CartDTO {
 
     String expireDate;
     String password;
-    
+
+    @Email
+    String email;
 
 }
