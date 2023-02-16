@@ -1,30 +1,30 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.service;
 
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.BaseServiceRequestDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.ExpertUpdateDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.SubServiceRequestDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.UserEmailDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.BaseServiceResponseDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.CustomerResponseDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.ExpertResponseDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.SubServiceResponseDTO;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.*;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.*;
 
 import java.util.List;
 
 public interface AdminService {
     void addNewService(BaseServiceRequestDTO baseService);
 
+    void removeService(Long baseServiceId);
+
     void addNewSubService(SubServiceRequestDTO subService);
 
-    void confirmExpert(ExpertUpdateDTO expertUpdateDTO);
+    void editSubService(UpdateSubServiceDTO subService);
 
-    void allocationServiceToExpert(SubServiceRequestDTO subServiceRequestDTO, UserEmailDTO expertEmailDTO);
+    void confirmExpert(Long expertId);
 
-    void removeExpertFromService(ExpertUpdateDTO expertUpdateDTO, SubServiceRequestDTO subServiceRequestDTO);
+    void allocationServiceToExpert(Long subServiceId, Long expertId);
+
+    void removeExpertFromService(Long subServiceId, Long expertId);
 
     List<BaseServiceResponseDTO> showAllService();
 
-    List<SubServiceResponseDTO> showSubServices(BaseServiceRequestDTO service);
+    List<SubServiceResponseDTO> showSubServices();
+
+    List<SubServiceResponseDTO> showSubServicesByService(Long baseServiceRequestId);
 
     List<CustomerResponseDTO> showAllCustomer();
 
@@ -33,4 +33,14 @@ public interface AdminService {
     List<ExpertResponseDTO> showAllNewExpert();
 
     List<ExpertResponseDTO> showAllConfirmedExpert();
+
+    void checkExpertDelayForWork(Long offerId);
+
+    void deActiveExpert(Long expertId);
+
+    List<FilterExpertResponseDTO> expertFilter(FilterExpertDTO expertDTO);
+
+    List<FilterCustomerResponseDTO> customerFilter(FilterCustomerDTO customerDTO);
+
+    List<ExpertResponseDTO> showSubServicesExpert(Long subServiceId);
 }
