@@ -1,8 +1,9 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.data.model;
 
-import ir.maktab.finalprojectphase3.HomeServiceProvider.Utils.DateUtil;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.enums.OfferStatus;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +12,6 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -26,34 +26,33 @@ public class Offer extends BaseEntity {
     Orders orders;
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    Date offerDate;
+    LocalDateTime offerDate;
 
-    Long offerPrice;
+    Double offerPrice;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    Date proposedStartDate;
+    LocalDateTime proposedStartDate;
 
     int durationOfWork;
+
+    LocalDateTime proposedEndDate;
 
     OfferStatus offerStatus;
 
     boolean isDeleted;
 
     public Offer() {
-        this.offerDate = DateUtil.asDate(LocalDateTime.now());
         this.offerStatus = OfferStatus.WAITING;
         this.isDeleted = false;
     }
 
-    public Offer(Long id, Expert expert, Orders orders, Long offerPrice, Date proposedStartDate, int durationOfWork) {
+    public Offer(Long id, Expert expert, Orders orders, Double offerPrice, LocalDateTime proposedStartDate, int durationOfWork, LocalDateTime proposedEndDate) {
         super(id);
         this.expert = expert;
         this.orders = orders;
         this.offerPrice = offerPrice;
         this.proposedStartDate = proposedStartDate;
-        this.offerDate = DateUtil.asDate(LocalDateTime.now());
         this.offerStatus = OfferStatus.WAITING;
         this.durationOfWork = durationOfWork;
+        this.proposedEndDate = proposedEndDate;
     }
 }

@@ -2,6 +2,7 @@ package ir.maktab.finalprojectphase3.HomeServiceProvider.data.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -18,12 +19,13 @@ public abstract class Person extends BaseEntity {
     String lastname;
 
     @Column(unique = true)
-    String emailAddress;
+    @Email
+    String email;
 
-    public Person(Long id, String firstname, String lastname, String emailAddress) {
+    public Person(Long id, String firstname, String lastname, String email) {
         super(id);
         this.firstname = firstname;
         this.lastname = lastname;
-        this.emailAddress = emailAddress;
+        this.email = email;
     }
 }

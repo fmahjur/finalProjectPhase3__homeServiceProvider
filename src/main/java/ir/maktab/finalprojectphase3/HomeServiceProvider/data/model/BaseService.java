@@ -4,10 +4,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
@@ -17,12 +14,13 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 @Entity
 public class BaseService extends BaseEntity implements Service {
     @Column(unique = true)
     String name;
-
-    @OneToMany(mappedBy = "baseService", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @OneToMany(mappedBy = "baseService")
     List<SubService> subServiceList = new ArrayList<>();
 
     boolean isDeleted;

@@ -16,7 +16,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class SubService extends BaseEntity implements Service {
-    @ManyToOne //(cascade = {CascadeType.ALL})
+    @ManyToOne
     BaseService baseService;
 
     @Column(unique = true)
@@ -26,14 +26,15 @@ public class SubService extends BaseEntity implements Service {
 
     Double basePrice;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    List<Expert> experts = new ArrayList<>();
+    @OneToMany(mappedBy = "subService", cascade = CascadeType.MERGE, orphanRemoval = true)
+    private List<Orders> orders = new ArrayList<>();
+    boolean isDeleted;
+
     public SubService() {
         this.isDeleted = false;
     }
-
-    @ManyToMany(mappedBy = "subServices", targetEntity = Expert.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, })
-    List<Expert> experts = new ArrayList<>();
-
-    boolean isDeleted;
 
     public SubService(Long id, BaseService baseService, String name, String description, Double basePrice) {
         super(id);
@@ -43,6 +44,7 @@ public class SubService extends BaseEntity implements Service {
         this.basePrice = basePrice;
         this.isDeleted = false;
     }
+
     public SubService(BaseService baseService, String name, String description, Double basePrice) {
         this.baseService = baseService;
         this.name = name;

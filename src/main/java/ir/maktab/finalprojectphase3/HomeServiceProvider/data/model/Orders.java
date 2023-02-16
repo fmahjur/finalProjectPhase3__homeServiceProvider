@@ -1,6 +1,5 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.data.model;
 
-import ir.maktab.finalprojectphase3.HomeServiceProvider.Utils.DateUtil;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -12,7 +11,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -22,10 +20,10 @@ import java.util.List;
 @Entity
 public class Orders extends BaseEntity {
     String orderNumber;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     Customer customer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     SubService subService;
 
     @OneToMany(mappedBy = "orders")
@@ -35,7 +33,7 @@ public class Orders extends BaseEntity {
     String description;
 
     @Column(nullable = false)
-    Long CustomerProposedPrice;
+    Double CustomerProposedPrice;
 
     @Enumerated(EnumType.STRING)
     OrderStatus orderStatus;
@@ -46,43 +44,41 @@ public class Orders extends BaseEntity {
     boolean isDeleted;
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    Date orderRegistrationDate;
+    LocalDateTime orderRegistrationDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    Date workStartDate;
+    LocalDateTime workStartDate;
 
     int durationOfWork;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    Address address;
+    LocalDateTime workEndDate;
+
+    String address;
 
     public Orders() {
         this.orderStatus = OrderStatus.WAITING_FOR_EXPERTS_OFFER;
         this.isDeleted = false;
     }
 
-    public Orders(Long id, String orderNumber, Customer customer, SubService subService, String description, Long customerProposedPrice, Date workStartDate, int durationOfWork, Address address) {
+    public Orders(Long id, String orderNumber, Customer customer, SubService subService, String description, Double customerProposedPrice, LocalDateTime workStartDate, int durationOfWork, String address) {
         super(id);
         this.orderNumber = orderNumber;
         this.customer = customer;
         this.subService = subService;
         this.description = description;
         this.CustomerProposedPrice = customerProposedPrice;
-        this.orderRegistrationDate = DateUtil.asDate(LocalDateTime.now());
         this.workStartDate = workStartDate;
         this.durationOfWork = durationOfWork;
         this.address = address;
         this.orderStatus = OrderStatus.WAITING_FOR_EXPERTS_OFFER;
         this.isDeleted = false;
     }
-    public Orders(String orderNumber, Customer customer, SubService subService, String description, Long customerProposedPrice, Date workStartDate, int durationOfWork, Address address) {
+
+    public Orders(String orderNumber, Customer customer, SubService subService, String description, Double customerProposedPrice, LocalDateTime workStartDate, int durationOfWork, String address) {
         this.orderNumber = orderNumber;
         this.customer = customer;
         this.subService = subService;
         this.description = description;
         this.CustomerProposedPrice = customerProposedPrice;
-        this.orderRegistrationDate = DateUtil.asDate(LocalDateTime.now());
         this.workStartDate = workStartDate;
         this.durationOfWork = durationOfWork;
         this.address = address;
