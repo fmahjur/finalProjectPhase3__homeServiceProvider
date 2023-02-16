@@ -1,4 +1,4 @@
-package ir.maktab.finalprojectphase3;
+package ir.maktab.finalprojectphase3.HomeServiceProvider;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
