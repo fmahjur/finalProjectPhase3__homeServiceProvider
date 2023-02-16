@@ -18,7 +18,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
-    private final ModelMapper mapper;
 
     @PostMapping("/add-base-service")
     public void addMainService(@RequestBody BaseServiceRequestDTO baseServiceRequestDTO) {
@@ -55,9 +54,9 @@ public class AdminController {
         return adminService.showSubServices();
     }
 
-    @GetMapping("/show-all-sub-services-by-service/{baseServiceRequestId}")
-    public List<SubServiceResponseDTO> findAllSubServiceByService(@PathVariable Long baseServiceRequestId) {
-        return adminService.showSubServicesByService(baseServiceRequestId);
+    @GetMapping("/show-all-sub-services-by-service/{baseServiceId}")
+    public List<SubServiceResponseDTO> findAllSubServiceByService(@PathVariable Long baseServiceId) {
+        return adminService.showSubServicesByService(baseServiceId);
     }
 
     @PutMapping("/edit-sub-service")
