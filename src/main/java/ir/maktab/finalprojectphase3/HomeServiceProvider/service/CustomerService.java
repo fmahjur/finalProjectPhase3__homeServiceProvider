@@ -1,10 +1,7 @@
 package ir.maktab.finalprojectphase3.HomeServiceProvider.service;
 
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.request.*;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.BaseServiceResponseDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.CustomerResponseDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.OrderResponseDTO;
-import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.SubServiceResponseDTO;
+import ir.maktab.finalprojectphase3.HomeServiceProvider.data.dto.response.*;
 import ir.maktab.finalprojectphase3.HomeServiceProvider.data.model.Customer;
 
 import java.util.List;
@@ -16,7 +13,7 @@ public interface CustomerService {
 
     void update(CustomerUpdateDTO customerUpdateDTO);
 
-    CustomerResponseDTO findByUsername(String customerUsername);
+    Customer findByUsername(String customerUsername);
 
     List<CustomerResponseDTO> selectAll();
 
@@ -24,27 +21,39 @@ public interface CustomerService {
 
     void login(LoginDTO customerLogin);
 
-    Customer changePassword(ChangePasswordDTO changePasswordDTO, String newPassword, String confirmNewPassword);
+    Customer changePassword(ChangePasswordDTO changePasswordDTO);
 
     void addNewOrder(SubmitOrderDTO SubmitOrderDTO);
 
-    void deleteOrder(OrderNumberDTO orderNumberDTO);
+    void deleteOrder(Long orderId);
 
     void editOrder(OrderUpdateDTO orderUpdateDTO);
 
-    void choseAnExpertForOrder(OrderUpdateDTO orderUpdateDTO, OfferRequestDTO offerRequestDTO);
+    void choseAnExpertForOrder(Long offerId);
 
-    void changeOrderStatusToStarted(OrderUpdateDTO orderUpdateDTO);
+    void changeOrderStatusToStarted(Long orderId);
 
-    void changeOrderStatusToDone(OrderUpdateDTO orderUpdateDTO);
+    void changeOrderStatusToDone(Long orderId);
 
-    void addNewComment(CommentRequestDTO comment, ExpertGetCommentDTO expert);
+    void addNewComment(CommentRequestDTO comment);
 
-    List<OrderResponseDTO> showAllCustomerOrders(UserEmailDTO customerEmail);
+    List<OrderResponseDTO> showAllCustomerOrders(Long customerId);
 
-    OrderResponseDTO showOrderDetails(String orderNumber);
+    OrderResponseDTO showOrderDetails(Long orderId);
 
     List<BaseServiceResponseDTO> showAllAvailableService();
 
-    List<SubServiceResponseDTO> showSubServices(BaseServiceRequestDTO service);
+    List<SubServiceResponseDTO> showSubServices(Long baseServiceId);
+
+    Customer findById(Long id);
+
+    List<OfferResponseDTO> showAllOfferForOrder(Long orderId);
+
+    void updateCredit(Long customerId, Long newCredit);
+
+    void payByCredit(Long orderId, Long customerId, Long expertId, Long amount);
+
+    List<FilterCustomerResponseDTO> customersFilter(FilterCustomerDTO customerDTO);
+
+    Long viewCredit(Long customerId);
 }
